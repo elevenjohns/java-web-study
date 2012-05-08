@@ -2,26 +2,24 @@
 	pageEncoding="gb2312"%>
 <html>
 	<head>
-		<title>显示所有图书信息</title>
+		<title>Book List</title>
 	</head>
 	<body>
 
 		<table border=1>
 			<tr>
 				<td>
-					图书名称
+					Title
 				</td>
 				<td>
-					图书价格
+					Price				</td>
+				<td>
+					Author
 				</td>
 				<td>
-					图书作者
-				</td>
+					Press				</td>
 				<td>
-					出版社
-				</td>
-				<td>
-					存放数量
+					Number
 				</td>
 			</tr>
 			<%
@@ -47,7 +45,7 @@
 			%>
 			<tr>
 				<td>
-					<a href="saveBook.jsp">添加图书信息</a>
+					<a href="saveBook.jsp">Add New Book</a>
 				</td>
 			</tr>
 		</table>

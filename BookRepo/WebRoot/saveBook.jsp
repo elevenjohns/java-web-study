@@ -1,14 +1,14 @@
 <%@ page language="java" pageEncoding="gb2312"%>
 <html>
 	<head>
-		<title>保存图书信息</title>
+		<title>Enter Book Infomartion</title>
 	</head>
 	<body>
 		<form action="bookshop.html?arg=2" method="post">
 			<table>
 				<tr>
 					<td>
-						图书名称：
+						Title
 					</td>
 					<td>
 						<input type="text" name="name" />
@@ -16,7 +16,7 @@
 				</tr>
 				<tr>
 					<td>
-						图书价格：
+						Price
 					</td>
 					<td>
 						<input type="text" name="price" />
@@ -24,7 +24,7 @@
 				</tr>
 				<tr>
 					<td>
-						图书作者：
+						Author
 					</td>
 					<td>
 						<input type="text" name="author" />
@@ -32,7 +32,7 @@
 				</tr>
 				<tr>
 					<td>
-						出版社：
+						Press
 					</td>
 					<td>
 						<input type="text" name="concern" />
@@ -40,7 +40,7 @@
 				</tr>
 				<tr>
 					<td>
-						存放数量：
+						Number
 					</td>
 					<td>
 						<input type="text" name="counts" />
@@ -48,7 +48,7 @@
 				</tr>
 				<tr>
 					<td>
-						<input type="submit" name="submit" value="提交" />
+						<input type="submit" name="submit" value="Submit" />
 					</td>
 				</tr>
 			</table>

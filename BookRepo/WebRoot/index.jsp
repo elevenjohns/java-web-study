@@ -21,6 +21,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-   <a href="bookshop.html?arg=1">查看所有图书信息</a> <br>
+   <a href="bookshop.html?arg=1">Show Book List</a> <br>
   </body>
 </html>

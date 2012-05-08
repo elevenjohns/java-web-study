@@ -1,4 +1,4 @@
-package com.dao;
+﻿package com.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +13,7 @@ import com.util.DBCon;
 
 public class BookDao {
 	private Connection conn;
-	//��ѯ����ͼ����Ϣ
+
 	public List findAllBooks() {
 		conn = DBCon.getConnection();
 		String listSQL = "select * from books";
@@ -46,7 +46,7 @@ public class BookDao {
 		}
 		return list;
 	}
-	//����ͼ����Ϣ
+
 	public boolean saveUser(Book book) throws Exception {
 		conn = DBCon.getConnection();
 		String listSQL = "insert into books  values(?,?,?,?,?,?)";
