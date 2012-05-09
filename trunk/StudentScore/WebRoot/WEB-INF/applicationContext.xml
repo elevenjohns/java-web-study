@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 配置数据源 -->
+	<!-- bean id="dataSource"
+	class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+
+		<property name="driverClass"
+			value="com.microsoft.jdbc.sqlserver.SQLServerDriver" />
+		<property name="jdbcUrl"
+			value="jdbc:microsoft:sqlserver://localhost;databaseName=school" />
+		<property name="user" value="sa" />
+		<property name="password" value="sa" />
+	</bean-->
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
+        <property name="driverClassName">  
+            <value>com.mysql.jdbc.Driver</value>  
+        </property>  
+        <property name="url">  
+            <value>jdbc:mysql://localhost:3306/school</value>  
+        </property>  
+        <property name="username">  
+            <value>root</value>  
+        </property>  
+        <property name="password">  
+            <value>123456</value>  
+        </property>  
+    </bean>  
+	
+
+	<!--  配置sessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>com/school/domain/Student.hbm.xml</value>
+				<value>com/school/domain/Course.hbm.xml</value>
+				<value>com/school/domain/Score.hbm.xml</value>
+			</list>
+		</property>
+		<!--  配置Hibernate相关属性 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQL5Dialect
+				</prop>
+				<prop key="show_sql">false</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 声明Hibernate事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 声明事务拦截器 -->
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<!-- 设置事务管理策略 -->
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 声明代理创建 -->
+	<bean id="ProxyCreator"
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<!-- 指定需生成业务代理的Bean -->
+		<property name="beanNames">
+			<list>
+				<value>studentService</value>
+			</list>
+		</property>
+		<!-- 调用事务拦截器 -->
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 把DAO注入给sessionFactory -->
+	<bean id="studentDao" class="com.school.dao.StudentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- 把Service注入给Dao -->
+	<bean id="studentService"
+		class="com.school.service.StudentServiceImpl">
+		<property name="studentDao" ref="studentDao" />
+	</bean>
+	<!-- 把Action注入给Service -->
+	<bean id="findAction" class="com.school.webtier.StudentAction">
+		<property name="studentService" ref="studentService" />
+	</bean>
+
+</beans>
